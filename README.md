@@ -4,7 +4,7 @@
 
 # Container with a different color background/image
 
-#Header with Trivia Title
+# Header with Trivia Title
 
 ## Start Button
 
@@ -32,7 +32,7 @@
 
 
 
-#Extra
+# Extra
 ## No user input it will move on to the next question and timer will restart.
 ## Wrong answers and time-outs:
 ### * If the player runs out of time, tell the player that time's up and display the correct answer. Wait a few seconds, then show the next question. * If the player chooses the wrong answer, tell the player they selected the wrong option and then display the correct answer. Wait a few seconds, then show the next question. * Wait a few seconds if player won to show the next question. 
