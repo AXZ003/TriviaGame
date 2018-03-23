@@ -5,26 +5,32 @@ $(document).ready(function() {
         var incorrect = 0;
         var unanswered = 0;
         var answer = false; // has to turn true
-        var count = 25;
+        var count = 16;
 
     function game() {
         $("#choices").empty(); //empty
 
         var questions = [{
             question: "What is Chandler's middle name?",
+            image: 'assets/images/chandler.gif',
             choices: ["Clint","Muriel","Toby"],
             correctAnswer: 1
+        
+            
+           
 
 
         },{
             question: "Where do Ross and Phoebe get stuck before Ben is born?",
+            image: 'assets/images/phoebeRoss.gif',
             choices: ["The Apartment","Traffic", "A Janitor's Closet"],
             correctAnswer: 2
-
+            
 
         }, { 
 
             question: "Where does Chandler tell Janice he has been relocated to to avoid her?",
+            image: 'assets/images/yemen.gif',
             choices: ["Yemen","Aruba","London"],
             correctAnswer: 0
 
@@ -33,6 +39,7 @@ $(document).ready(function() {
         }, {
 
             question: "What does Monica's dad give her to compensate ruining her childhood possesions?",
+            image: 'assets/images/monica.gif',
             choices: ["Money","Porche","House"],
             correctAnswer: 1
 
@@ -40,6 +47,7 @@ $(document).ready(function() {
         },{
     
             question: "What is the name of Joey's agent?",
+            image: 'assets/images/estelle.gif',
             choices: ["Janice","Phoebe","Estelle"],
             correctAnswer: 2
 
@@ -47,6 +55,7 @@ $(document).ready(function() {
         }, {
 
             question: "What is the name of Ross and Rachel's daughter?",
+            image: 'assets/images/emma.gif',
             choices: ["Emma","Charlie","Carol"],
             correctAnswer: 0
 
@@ -60,14 +69,12 @@ $(document).ready(function() {
         function timer() {
             count --;
             $("#time").html("Time Left: " + count);
-                if (count = 0) {
+                if (count == 0) {
                     clearInterval(counter); //Stop counting
                     unanswered++;
                     console.log("Time ran out!")
                     $("#choices").html(
-                        "You ran out of time! The correct answer: " +
-                        triviaQuestion.choices[triviaQuestion.correctAnswer]
-                    )
+                        "You ran out of time! The correct answer: " + triviaQuestion.choices[triviaQuestion.correctAnswer])
                     setTimeout(ending, 2000);
                 }
                 
@@ -83,41 +90,57 @@ $(document).ready(function() {
         function randomObject (obj) { // randomProperty
 
             var keys = Object.keys(obj) // Object needs to be in CAPS
-            return obj[keys[Math.floor(Math.random()*keys.lenght)]];
+            return obj[keys[Math.floor(Math.random()*keys.length)]];
 
         }
 
         var triviaQuestion = randomObject(questions); 
+        console.log(triviaQuestion);
         //  randomQuestion
         var askedQuestions = []; // the already answered questions go into an array
         askedQuestions.push(triviaQuestion);
 
         // Append so it goes onto the page
 
-        $("#question").append(triviaQuestion + question + "<br>");
+        $("#question").append(triviaQuestion.question + "<br>");
+       
+       
+           
+        $("#question").append($('<img>').attr('src', triviaQuestion.image));
 
-        var multipleChoice = triviaQuestion + choices;
+       
+
+
+
+
+
+
+        var multipleChoice = triviaQuestion.choices;
 
         // Make it loop so through the choice array and create a list
 
-        for (var i = 0; i <triviaQuestion.choices.lenght; i++){
+        for (var i = 0; i <triviaQuestion.choices.length; i++){
    
             $("#choices").append('<button>' + triviaQuestion.choices[i] + '</button>');
+           
 
 
         }   
 
 
+
+
         $("#choices button").on("click", function() {
             //Gets user answer guess
             var userAnswer = $(this).text();
+
             if (multipleChoice.indexOf(userAnswer) ==
                 triviaQuestion.correctAnswer) {
                 correct++;
                 console.log("right");
                 answer = true;
                 $("#question").empty();
-                $("#choices").html("You are correct!")
+                $("#choices").html("You are right!")
                 setTimeout(reset, 3000);
             } else {
                 incorrect++;
@@ -125,7 +148,7 @@ $(document).ready(function() {
                 answer = true;
                 $("#question").empty();
                 $("#choices").html(
-                    "You are wrrrrrrooooonnngggggg! The correct answer: " +
+                    "You are wrrrrrrooooonnngggggg! <br> The correct answer: " +
                     triviaQuestion.choices[
                         triviaQuestion.correctAnswer])
                 setTimeout(reset, 3000);
@@ -145,16 +168,12 @@ $(document).ready(function() {
             // );
             // audio.play();
             
-            $("#choices").html("All done, heres how you did!" +
-                "<br>" + "Correct Answers: " + correct +
-                "<br>" + "Incorrect Answers: " + incorrect +
-                "<br>" + "Unanswered: " + unanswered);
-            $("#correct").append(
-                "<button id='startover'>Start Over?</button>"
-            )
+            $("#choices").html("Results! " +  "<br>" + " Correct Answers: " + correct +  "<br>" + " Incorrect Answers: " + incorrect +  "<br>" + " Unanswered: " + unanswered);// add breaks
+            $("#correct").append("<button id='startover'>Again!</button>")
             $("#startover").on("click", function() {
                 // audio.pause();
                 $("button").remove();
+                clearInterval(counter)
                 game();
             })
         }
@@ -163,7 +182,7 @@ $(document).ready(function() {
             $("#time").empty();
             $("#question").empty();
             $("#choices").empty();
-            count = 25;
+            count = 16;
             timer();
             //End questions and display correct/incorrect answers
             if (correct + incorrect + unanswered === 5) {
@@ -178,40 +197,40 @@ $(document).ready(function() {
                     }
                 }
             }
+
+
             triviaQuestion = randomObject(questions);
             askedQuestions.push(triviaQuestion);
             //Append the random question
-            $("#question").append(triviaQuestion.question +
-                "<br>");
+            console.log(triviaQuestion);
+            $("#question").append(triviaQuestion.question);
+
+            $("#question").append($('<img>').attr('src', triviaQuestion.image));   ////
+            
             var multipleChoice = triviaQuestion.choices;
             //Loop thru the choices array and add it to a list to display it better
             for (var i = 0; i < triviaQuestion.choices.length; i++) {
-                $("#choices").append('<button>' +
-                    triviaQuestion.choices[i] + '</button>'
-                );
+                $("#choices").append('<button>' + triviaQuestion.choices[i] + '</button>');
             }
+
+
             $("#choices button").on("click", function() {
                 //Gets user answer guess
                 var userAnswer = $(this).text();
-                if (multipleChoice.indexOf(userAnswer) ==
-                    triviaQuestion.correctAnswer) {
+                if (multipleChoice.indexOf(userAnswer) == triviaQuestion.correctAnswer) {
                     correct++;
                     console.log("right");
                     answer = true;
                     $("#question").empty();
-                    $("#choices").html(
-                        "You are correct!")
-                    setTimeout(reset, 2000);
+                    $("#choices").html("You are correct!")
+                        setTimeout(reset, 2000);
                 } else {
                     incorrect++;
                     console.log("wrong");
                     answer = true;
                     $("#question").empty();
                     $("#choices").html(
-                        "You are wrrrrrrooooonnngggggg! The correct answer: " +
-                        triviaQuestion.choices[
-                            triviaQuestion.correctAnswer
-                        ])
+                        "You are wrrrrrrooooonnngggggg! The correct answer: " + triviaQuestion.choices[triviaQuestion.correctAnswer])
                     setTimeout(reset, 2000);
                 }
             })
