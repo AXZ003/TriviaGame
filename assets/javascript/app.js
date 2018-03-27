@@ -11,7 +11,7 @@ $(document).ready(function() {
         $("#choices").empty(); //empty
 
         var questions = [{
-            question: "What is Chandler's middle name?",
+            question: "What is Chandler's middle name?   ",
             image: 'assets/images/chandler.gif',
             choices: ["Clint","Muriel","Toby"],
             correctAnswer: 1
@@ -46,7 +46,7 @@ $(document).ready(function() {
 
         },{
     
-            question: "What is the name of Joey's agent?",
+            question: "What is the name of Joey's agent?     ",
             image: 'assets/images/estelle.gif',
             choices: ["Janice","Phoebe","Estelle"],
             correctAnswer: 2
@@ -54,7 +54,7 @@ $(document).ready(function() {
 
         }, {
 
-            question: "What is the name of Ross and Rachel's daughter?",
+            question: "What is the name of Ross and Rachel's daughter?      ",
             image: 'assets/images/emma.gif',
             choices: ["Emma","Charlie","Carol"],
             correctAnswer: 0
